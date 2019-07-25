@@ -6,6 +6,7 @@ module Enumerable
         yield(self[index])
         index += 1
       end
+      self
     end
   
   #each_with_index
@@ -15,8 +16,11 @@ module Enumerable
         yield(self[index],index)
         index += 1
       end
+      self
     end
   
+  
+
   #select
     def my_select
       new_arr = Array.new()
@@ -25,10 +29,16 @@ module Enumerable
     end
   
   #all?
+
     def my_all?
-      result = false
-      self.my_each {|mine| yield(mine) ? result = true : result = false }
-      result
+      if block_given?
+        self.my_each{|item| return false if yield(item) == false }
+        # return true unless one is false
+        true
+      else
+        # if no block given return true
+        true
+      end
     end
   
   #any?
@@ -96,8 +106,8 @@ module Enumerable
   #print test_arr.my_select {|num| num % 2 == 0}
   
   #all?
-  #print test_arr.all? {|num| num.is_a? Integer}
-  #print test_arr.all? {|num| num.is_a? String}
+  # print test_arr.all? {|num| num.is_a? Integer}
+  # print test_arr.all? {|num| num.is_a? String}
   #print test_arr.my_all? {|num| num.is_a? Integer}
   #print test_arr.my_all? {|num| num.is_a? String}
   

@@ -1,17 +1,18 @@
-require_relative './../enumerable_methods.rb'
+require_relative '../enumerable_methods'
 
 RSpec.describe Enumerable do
 
     
     describe "#my_each" do
         it "Takes a block as argument" do
-            expect([1,2,3].my_each {|x| x}).to eq([1,2,3])
+            arr = [1,2,3]
+            expect(arr.my_each {|x| x}).to eql(arr)
         end
     end
 
     describe "#my_each_with_index" do
         it "Works with the index of each element in the array" do
-            expect([1,2,3].my_each_with_index {|x, idx| idx}).to eq([0,1,2]) 
+            expect([1,2,3].my_each_with_index {|x, idx| idx}).to eql([1,2,3]) 
         end
     end
 
@@ -26,6 +27,8 @@ RSpec.describe Enumerable do
             expect([1,"2",3,4].my_all? {|x| x.is_a? Integer }).to eql(false)
         end
     end
+
+
     
     describe "#my_any?" do
         it "returns true if any of the element in the array pass a condition, otherwise returns false" do
